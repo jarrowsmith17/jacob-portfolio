@@ -1,12 +1,14 @@
 import Hero from './components/Hero';
 import Skills from './components/Skills';
-import ProjectsCarousel from './components/ProjectCarousel'; // 1. Import our new component
-import { prisma } from './lib/prisma'; // Import the file we just made
+import ProjectsCarousel from './components/ProjectCarousel'; 
+import { prisma } from './lib/prisma'; 
 
-// 4. By default, Next.js pages are Server Components, so we can run async DB code directly here.
+// This tells Next.js: "Don't cache this page at build time. Fetch fresh data on every request."
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   
-  // 5. Fetch projects from the database, ordered by creation date
+  // Fetch projects (Newest First)
   const projects = await prisma.project.findMany({
     orderBy: {
       createdAt: 'desc',
@@ -27,7 +29,6 @@ export default async function Home() {
             </p>
           </div>
 
-          {/* 6. Pass the fetched data into the Client Component */}
           <ProjectsCarousel projects={projects} />
           
         </div>
