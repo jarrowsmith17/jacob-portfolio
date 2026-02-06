@@ -77,7 +77,7 @@ export default async function AdminDashboard() {
 
                   {/* Right Side: Button Group Wrapper */}
                   <div className="flex items-center gap-2"> 
-                    <Link href={`/blog/${post.id}`} className="px-4 py-2 text-sm font-medium text-slate-600 border border-slate-200 rounded-lg hover:bg-white hover:text-blue-600 hover:border-blue-300 transition-all shadow-sm">
+                    <Link href={`/blog/${post.slug}`} className="px-4 py-2 text-sm font-medium text-slate-600 border border-slate-200 rounded-lg hover:bg-white hover:text-blue-600 hover:border-blue-300 transition-all shadow-sm">
                       Preview
                     </Link>
                     <Link href={`/admin/edit-blog/${post.id}`} className="px-4 py-2 text-sm font-medium text-slate-600 border border-slate-200 rounded-lg hover:bg-white hover:text-blue-600 hover:border-blue-300 transition-all shadow-sm">
