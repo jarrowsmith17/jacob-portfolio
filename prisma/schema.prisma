@@ -1,0 +1,50 @@
+//Database schema to build the backend DB.
+
+// 1. Database Configuration
+datasource db {
+  provider  = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 2. Models
+
+// For your Admin Login
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String   // Hashed password
+}
+
+// For your Portfolio Projects
+model Project {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  imageUrl    String   // URL from Supabase Storage
+  repoLink    String
+  liveLink    String?  // '?' means this is optional (nullable)
+  techStack   String[] // Array of strings e.g. ["React", "Node"]
+  createdAt   DateTime @default(now())
+}
+
+// For your Blog
+model BlogPost {
+  id        Int      @id @default(autoincrement())
+  title     String
+  slug      String   @unique // For SEO-friendly URLs (e.g., /blog/my-new-project)
+  content   String   // Stores the HTML or Markdown
+  coverImage String?
+  published Boolean  @default(false) // Draft vs Published
+  createdAt DateTime @default(now())
+}
+
+// For the LinkTree page
+model Link {
+  id     Int    @id @default(autoincrement())
+  title  String
+  url    String
+  active Boolean @default(true)
+}
