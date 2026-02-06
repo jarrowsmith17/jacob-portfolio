@@ -6,7 +6,7 @@ import { Analytics } from "@vercel/analytics/next"
 // 2. Strongly type the metadata object
 export const metadata: Metadata = {
   title: 'Jacob Arrowsmith | Portfolio',
-  description: 'Full Stack Developer based in the UK.',
+  description: 'Software Engineer based in the UK.',
 };
 
 // 3. Define props interface: 'children' is a React Node
