@@ -20,8 +20,8 @@ export default function Hero() {
         
         {/* Bio Description */}
         <p className="text-lg md:text-xl text-slate-600 max-w-2xl mb-8 leading-relaxed">
-          A Computer Science Graduate passionate about building robust software and intuitive frontend experiences. 
-          Currently specializing in the <span className="font-semibold text-slate-800">SAP</span> and <span className="font-semibold text-slate-800">Microsoft Power Platform Development.</span>
+          A Software Engineer passionate about building robust software and intuitive frontend experiences. 
+          Currently specializing in <span className="font-semibold text-slate-800">SAP Consultancy</span> and <span className="font-semibold text-slate-800">Microsoft Power Platform Development.</span>
         </p>
 
         {/* Call to Actions */}
