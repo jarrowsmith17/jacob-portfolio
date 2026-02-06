@@ -59,6 +59,8 @@ export default async function AdminDashboard() {
             <div className="divide-y divide-slate-100">
               {blogs.map((post) => (
                 <div key={post.id} className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                  
+                  {/* Left Side: Icon and Title Info */}
                   <div className="flex items-center gap-4">
                     <div className={`p-2 rounded-lg ${post.published ? 'bg-green-100 text-green-600' : 'bg-yellow-100 text-yellow-600'}`}>
                       <HiDocumentText size={20} />
@@ -72,9 +74,17 @@ export default async function AdminDashboard() {
                       </p>
                     </div>
                   </div>
-                  <Link href={`/admin/edit-blog/${post.id}`} className="px-4 py-2 text-sm font-medium text-slate-600 border border-slate-200 rounded-lg hover:bg-white hover:text-blue-600 hover:border-blue-300 transition-all shadow-sm">
-                    Edit
-                  </Link>
+
+                  {/* Right Side: Button Group Wrapper */}
+                  <div className="flex items-center gap-2"> 
+                    <Link href={`/blog/${post.id}`} className="px-4 py-2 text-sm font-medium text-slate-600 border border-slate-200 rounded-lg hover:bg-white hover:text-blue-600 hover:border-blue-300 transition-all shadow-sm">
+                      Preview
+                    </Link>
+                    <Link href={`/admin/edit-blog/${post.id}`} className="px-4 py-2 text-sm font-medium text-slate-600 border border-slate-200 rounded-lg hover:bg-white hover:text-blue-600 hover:border-blue-300 transition-all shadow-sm">
+                      Edit
+                    </Link>
+                  </div>
+
                 </div>
               ))}
             </div>
