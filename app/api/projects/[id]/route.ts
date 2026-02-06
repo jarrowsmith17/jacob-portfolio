@@ -32,7 +32,7 @@ export async function PUT(
 
   const { id } = await params; // Fix: Await here
   const body = await req.json();
-  const { title, description, imageUrl, repoLink, liveLink, techStack } = body;
+  const { title, description, imageUrl, repoLink, liveLink, techStack, relatedBlogSlug } = body;
 
   const updatedProject = await prisma.project.update({
     where: { id: parseInt(id) },
@@ -42,6 +42,7 @@ export async function PUT(
       imageUrl,
       repoLink,
       liveLink: liveLink || null,
+      relatedBlogSlug: relatedBlogSlug || null,
       techStack: typeof techStack === 'string' ? techStack.split(',').map((t: string) => t.trim()) : techStack,
     },
   });

@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import Link from 'next/link'; // <--- 1. NEW IMPORT
 
 interface Project {
   id: number;
@@ -12,6 +13,7 @@ interface Project {
   repoLink: string;
   liveLink: string | null;
   techStack: string[];
+  relatedBlogSlug: string | null; // <--- 2. NEW FIELD
 }
 
 export default function ProjectsCarousel({ projects }: { projects: Project[] }) {
@@ -80,6 +82,19 @@ export default function ProjectsCarousel({ projects }: { projects: Project[] }) 
                   </span>
                 ))}
               </div>
+
+              {/* --- 3. NEW: Case Study Link --- */}
+              {project.relatedBlogSlug && (
+                <div className="mb-4">
+                  <Link 
+                    href={`/blog/${project.relatedBlogSlug}`}
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors group/link"
+                  >
+                    Read Case Study 
+                    <span className="group-hover/link:translate-x-1 transition-transform">→</span>
+                  </Link>
+                </div>
+              )}
 
               {/* Buttons */}
               <div className="flex gap-3">

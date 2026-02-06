@@ -15,6 +15,7 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
     slug: '',
     content: '',
     coverImage: '',
+    category: 'General', // State for category
     published: false,
   });
 
@@ -26,10 +27,10 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
         return;
       }
       const data = await res.json();
-      // Ensure coverImage is not null/undefined to avoid React warnings
       setFormData({
         ...data,
-        coverImage: data.coverImage || ''
+        coverImage: data.coverImage || '',
+        category: data.category || 'General' // Ensure category is loaded
       });
       setLoading(false);
     };
@@ -88,7 +89,6 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             
-            {/* Title & Slug Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
@@ -107,12 +107,27 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
                   required
                   value={formData.slug}
                   onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                  className="w-full px-4 py-2 border border-slate-300 rounded-lg bg-slate-50 text-slate-600"
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg bg-slate-50"
                 />
               </div>
             </div>
 
-            {/* --- NEW: Image URL Input --- */}
+            {/* --- CATEGORY DROPDOWN --- */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Category</label>
+              <select
+                value={formData.category}
+                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white"
+              >
+                <option value="General">General</option>
+                <option value="Projects">Projects</option>
+                <option value="Movie Review">Movie Review</option>
+                <option value="Product Review">Product Review</option>
+                <option value="Tutorial">Tutorial</option>
+              </select>
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Cover Image URL</label>
               <input
@@ -120,11 +135,9 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
                 value={formData.coverImage}
                 onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                placeholder="https://..."
               />
             </div>
 
-            {/* Content Area */}
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Content (Markdown)</label>
               <textarea
@@ -136,7 +149,6 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
               />
             </div>
 
-            {/* Status Toggle */}
             <div className="p-4 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between">
               <div>
                 <span className="block font-medium text-slate-900">Status</span>

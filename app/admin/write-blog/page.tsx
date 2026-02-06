@@ -14,10 +14,10 @@ export default function WriteBlogPage() {
     slug: '',
     content: '',
     coverImage: '',
+    category: 'General', // Default
     published: false,
   });
 
-  // Auto-generate slug from title
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;
     const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
@@ -35,7 +35,7 @@ export default function WriteBlogPage() {
     });
 
     if (res.ok) {
-      router.push('/blog'); // Go to the public blog page to see it
+      router.push('/blog');
     } else {
       alert('Failed to save blog');
     }
@@ -65,7 +65,6 @@ export default function WriteBlogPage() {
                   value={formData.title}
                   onChange={handleTitleChange}
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                  placeholder="My First Blog Post"
                 />
               </div>
               
@@ -81,6 +80,22 @@ export default function WriteBlogPage() {
               </div>
             </div>
 
+            {/* --- CATEGORY DROPDOWN --- */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Category</label>
+              <select
+                value={formData.category}
+                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white"
+              >
+                <option value="General">General</option>
+                <option value="Projects">Projects</option>
+                <option value="Movie Review">Movie Review</option>
+                <option value="Product Review">Product Review</option>
+                <option value="Tutorial">Tutorial</option>
+              </select>
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Cover Image URL</label>
               <input
@@ -88,19 +103,17 @@ export default function WriteBlogPage() {
                 value={formData.coverImage}
                 onChange={(e) => setFormData({...formData, coverImage: e.target.value})}
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                placeholder="https://..."
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Content (Markdown Supported)</label>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Content (Markdown)</label>
               <textarea
                 required
                 rows={12}
                 value={formData.content}
                 onChange={(e) => setFormData({...formData, content: e.target.value})}
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none font-mono text-sm"
-                placeholder="# Hello World&#10;&#10;Write your content here..."
               />
             </div>
 
@@ -115,11 +128,7 @@ export default function WriteBlogPage() {
               <label htmlFor="published" className="text-slate-700 font-medium">Publish immediately?</label>
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-slate-900 text-white py-3 rounded-lg font-medium hover:bg-slate-800 transition-colors"
-            >
+            <button type="submit" disabled={loading} className="w-full bg-slate-900 text-white py-3 rounded-lg font-medium hover:bg-slate-800 transition-colors">
               {loading ? 'Saving...' : 'Create Post'}
             </button>
 

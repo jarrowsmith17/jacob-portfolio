@@ -27,18 +27,21 @@ model Project {
   repoLink    String
   liveLink    String?  // '?' means this is optional (nullable)
   techStack   String[] // Array of strings e.g. ["React", "Node"]
+  relatedBlogSlug String?  // <--- ADD THIS (Optional link to a blog)
   createdAt   DateTime @default(now())
 }
 
 // For your Blog
 model BlogPost {
-  id        Int      @id @default(autoincrement())
-  title     String
-  slug      String   @unique // For SEO-friendly URLs (e.g., /blog/my-new-project)
-  content   String   // Stores the HTML or Markdown
-  coverImage String?
-  published Boolean  @default(false) // Draft vs Published
-  createdAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  content     String
+  coverImage  String?
+  published   Boolean  @default(false)
+  category    String   @default("General") // <--- ADD THIS LINE
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 // For the LinkTree page

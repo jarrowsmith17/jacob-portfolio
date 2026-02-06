@@ -20,7 +20,8 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
     repoLink: '',
     liveLink: '',
     techStack: '',
-  });
+    relatedBlogSlug: '', // <--- Add this
+});
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -36,8 +37,9 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
       setFormData({
         ...data,
         liveLink: data.liveLink || '',
+        relatedBlogSlug: data.relatedBlogSlug || '', // <--- Add this
         techStack: data.techStack.join(', '),
-      });
+    });
       setLoading(false);
     };
     fetchProject();
@@ -153,6 +155,22 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
               />
+            </div>
+            {/* Related Blog Post */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Related Blog Slug</label>
+              <div className="flex gap-2 items-center">
+                <span className="text-slate-400 text-sm">/blog/</span>
+                <input
+                  type="text"
+                  name="relatedBlogSlug"
+                  value={formData.relatedBlogSlug}
+                  onChange={handleChange}
+                  placeholder="my-cool-project-case-study"
+                  className="flex-1 px-4 py-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <p className="text-xs text-slate-500 mt-1">Paste the "slug" of the blog post here to link them.</p>
             </div>
 
             {/* Links */}
